@@ -5,11 +5,13 @@
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 import random
+import requests
+import logging
 from scrapy import signals
 from scrapy.downloadermiddlewares.httpproxy import HttpProxyMiddleware  # 代理ip，这是固定的导入
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware  # 代理UA，固定导入
 
-from MeiTuanSpider.settings import USER_AGENTS, IPPOOLS
+from MeiTuanSpider.settings import USER_AGENTS, PROXY_URL
 
 
 class MeituanspiderSpiderMiddleware(object):
@@ -107,24 +109,38 @@ class MeituanspiderDownloaderMiddleware(object):
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
-class IPPoolsMiddleware(HttpProxyMiddleware):
-    def __init__(self, ip=''):
-        '''初始化'''
-        self.ip = ip
+class ProxyMiddleware(object):
+    def __init__(self, proxy_url):
+
+        self.logger = logging.getLogger(__name__)
+        self.proxy_url = proxy_url
+        print(self.proxy_url, '--------------')
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        settings = crawler.settings
+        return cls(
+            proxy_url=settings.get('PROXY_URL')
+        )
+
+    def get_random_proxy(self):
+        try:
+            print('=============')
+            response = requests.get(self.proxy_url)
+            if response.status_code == 200:
+                proxy = response.text
+                return proxy
+        except requests.ConnectionError:
+            return False
 
     def process_request(self, request, spider):
-        '''使用代理ip，随机选用'''
-        ip = random.choice(self.ip_pools)  # 随机选择一个ip
-        print('当前使用的IP是' + ip['ip'])
-        try:
-            request.meta["proxy"] = "http://" + ip['ip']
-        except Exception as e:
-            print(e)
-            pass
-
-    ip_pools = IPPOOLS
-
-
+        # if request.url == 'https://verify.meituan.com/v2/ext_api/page_data':
+        proxy = self.get_random_proxy()
+        print(proxy)
+        if proxy:
+            uri = 'https://{proxy}'.format(proxy=proxy)
+            print(uri, '----------')
+            request.meta['proxy'] = uri
 
 
 

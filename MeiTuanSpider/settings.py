@@ -27,13 +27,13 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 1
+# DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-# COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 # TELNETCONSOLE_ENABLED = False
@@ -46,18 +46,21 @@ DOWNLOAD_DELAY = 1
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-SPIDER_MIDDLEWARES = {
-   # 'MeiTuanSpider.middlewares.IPPoolsMiddleware': 543,
-   'MeiTuanSpider.middlewares.RandomUserAgentMiddleware': 125,
-   # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 123,
-   # 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': 125,
-}
+# SPIDER_MIDDLEWARES = {
+#    # 'MeiTuanSpider.middlewares.IPPoolsMiddleware': 543,
+#    # 'MeiTuanSpider.middlewares.RandomUserAgentMiddleware': 225,
+#    'MeiTuanSpider.middlewares.ProxyMiddleware': 110,
+#
+#    # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 123,
+#    # 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': 125,
+# }
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'MeiTuanSpider.middlewares.MeituanspiderDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+   'MeiTuanSpider.middlewares.ProxyMiddleware': 110,
+   # 'MeiTuanSpider.middlewares.RandomUserAgentMiddleware': 111,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -152,100 +155,4 @@ USER_AGENTS = [
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'
 ]
 
-IPPOOLS = [
-    {'ip': '47.90.87.225:88'},
-    {'ip': '103.61.100.97:8080'},
-    {'ip': '202.63.243.167:53281'},
-    {'ip': '78.111.120.233:53281'},
-    {'ip': '202.93.228.34:53281'},
-    {'ip': '101.110.118.24:8088'},
-    {'ip': '14.102.50.11:8080'},
-    {'ip': '197.210.165.66:53281'},
-    {'ip': '212.19.96.71:41258'},
-    {'ip': '117.44.247.49:8908'},
-    {'ip': '103.55.69.242:53281'},
-    {'ip': '117.44.247.53:8908'},
-    {'ip': '172.254.60.170:8080'},
-    {'ip': '101.110.119.66:93'},
-    {'ip': '58.247.46.123:8088'},
-    {'ip': '185.93.204.132:41258'},
-    {'ip': '46.175.253.242:41258'},
-    {'ip': '115.213.240.68:9000'},
-    {'ip': '185.18.141.40:41258'},
-    {'ip': '95.143.111.2:41258'},
-    {'ip': '150.242.109.124:53281'},
-    {'ip': '31.179.192.216:8080'},
-    {'ip': '42.112.15.116:53281'},
-    {'ip': '103.225.69.3:53281'},
-    {'ip': '101.96.11.37:8090'},
-    {'ip': '188.239.118.227:41258'},
-    {'ip': '101.110.118.60:80'},
-    {'ip': '101.110.118.20:8090'},
-    {'ip': '101.96.10.72:80'},
-    {'ip': '91.211.107.204:41258'},
-    {'ip': '81.211.100.158:8080'},
-    {'ip': '85.91.119.6:8080'},
-    {'ip': '38.103.239.13:35617'},
-    {'ip': '95.78.173.238:53281'},
-    {'ip': '103.16.165.99:53281'},
-    {'ip': '186.83.66.5:63909'},
-    {'ip': '81.15.203.30:41258'},
-    {'ip': '31.173.222.141:8080'},
-    {'ip': '80.94.30.234:8080'},
-    {'ip': '39.104.77.237:8080'},
-    {'ip': '178.54.6.178:53281'},
-    {'ip': '200.146.226.75:8080'},
-    {'ip': '101.96.11.40:87'},
-    {'ip': '190.90.193.27:53281'},
-    {'ip': '196.22.55.22:53281'},
-    {'ip': '87.244.181.115:8080'},
-    {'ip': '103.94.122.254:8080'},
-    {'ip': '36.66.226.185:8080'},
-    {'ip': '200.114.102.129:53281'},
-    {'ip': '114.141.57.50:53281'},
-    {'ip': '41.169.154.2:8080'},
-    {'ip': '80.150.65.6:8080'},
-    {'ip': '91.234.183.25:53281'},
-    {'ip': '101.96.11.39:83'},
-    {'ip': '101.96.11.37:8089'},
-    {'ip': '123.57.61.38:8118'},
-    {'ip': '31.25.129.84:8080'},
-    {'ip': '90.151.59.120:8080'},
-    {'ip': '117.90.4.187:9000'},
-    {'ip': '178.33.178.217:80'},
-    {'ip': '37.221.249.37:8080'},
-    {'ip': '92.247.95.173:53281'},
-    {'ip': '103.16.165.226:53281'},
-    {'ip': '101.110.119.63:80'},
-    {'ip': '189.58.101.69:53281'},
-    {'ip': '169.255.5.174:53281'},
-    {'ip': '103.94.112.90:8080'},
-    {'ip': '31.25.137.182:8080'},
-    {'ip': '91.200.44.190:8080'},
-    {'ip': '222.175.200.58:8060'},
-    {'ip': '181.211.166.105:54314'},
-    {'ip': '77.75.6.34:8080'},
-    {'ip': '217.12.212.150:24'},
-    {'ip': '138.121.33.6:53281'},
-    {'ip': '37.187.178.194:808'},
-    {'ip': '69.63.67.43:8080'},
-    {'ip': '91.92.10.112:8080'},
-    {'ip': '95.105.254.219:8080'},
-    {'ip': '213.222.34.200:53281'},
-    {'ip': '92.38.47.226:80'},
-    {'ip': '103.85.64.212:53281'},
-    {'ip': '101.96.10.36:8088'},
-    {'ip': '39.104.13.181:8080'},
-    {'ip': '83.215.247.182:53281'},
-    {'ip': '121.121.125.55:80'},
-    {'ip': '77.85.169.28:8080'},
-    {'ip': '39.104.62.1:8080'},
-    {'ip': '103.88.234.90:53281'},
-    {'ip': '39.137.69.10:80'},
-    {'ip': '182.93.91.244:80'},
-    {'ip': '101.96.11.36:86'},
-    {'ip': '103.79.11.23:53281'},
-    {'ip': '91.185.47.156:8080'},
-    {'ip': '168.253.73.227:53281'},
-    {'ip': '222.222.236.207:8060'},
-]
+PROXY_URL = 'http://localhost:5555/random'

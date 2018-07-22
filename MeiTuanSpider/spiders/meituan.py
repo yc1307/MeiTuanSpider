@@ -22,13 +22,6 @@ class MeituanSpider(scrapy.Spider):
     }
 
     def start_requests(self):
-        # with open('utils/CityMap.json', 'rb') as f:
-        #     json_f = demjson.decode(f.read())
-        #     id_list = []
-        #     for city_list in json_f:
-        #         id = city_list['id']
-        #         id_list.append(id)
-        #         id_list.sort()
 
         for cityid in self.CityId_list:
             for i in range(3000):

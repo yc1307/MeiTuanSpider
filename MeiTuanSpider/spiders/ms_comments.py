@@ -2,9 +2,9 @@
 import json
 import re
 import time
-
+import requests
 import scrapy
-
+from utils.proxies_test import get_proxy
 from MeiTuanSpider.items import MeituanBranditem, MeituanCommentItem
 
 
@@ -21,9 +21,11 @@ class MsCommentsSpider(scrapy.Spider):
             yield scrapy.Request(
                 url=self.brand_url.format(i),
                 # 转至parse函数中,对单个页面处理
-                callback=self.parse
+                callback=self.parse,
             )
-        time.time(1000)
+        print('*' * 50)
+        # time.sleep(1000)
+
     def parse(self, response):
         brand_list = re.findall(r'"poiLists":(.*?),"comHeader"', response.body.decode())[0]
         brand_list = json.loads(brand_list)
@@ -41,7 +43,9 @@ class MsCommentsSpider(scrapy.Spider):
                 yield scrapy.Request(
                     url=self.comment_url[0].format(item['BrandId'], i * 10),
                     callback=self.parse_comments,
-                    meta={'item': item}
+                    meta={
+                        'item': item,
+                    }
                 )
             yield item
 
